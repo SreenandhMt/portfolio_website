@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ConnectSection extends StatefulWidget {
   const ConnectSection({super.key});
@@ -33,25 +36,29 @@ class _ConnectSectionState extends State<ConnectSection> {
                       AnimatedIconButton(
                         icon: Icons.mail,
                         text: "Open Email",
-                        url: 'assets/image/email.png',
+                        imageUrl: 'assets/image/email.png',
+                        url: "mailto:sreenand104@gmail.com",
                       ),
                       SizedBox(width: 6),
                       AnimatedIconButton(
                         icon: Icons.linked_camera,
                         text: "Open LInkedin",
-                        url: 'assets/image/linkedin2.png',
+                        imageUrl: 'assets/image/linkedin2.png',
+                        url: "www.linkedin.com/in/sreenandh-mt",
                       ),
                        SizedBox(width: 6),
                       AnimatedIconButton(
                         icon: Icons.linked_camera,
                         text: "Open GitHub",
-                        url: 'assets/image/github.png',
+                        imageUrl: 'assets/image/github.png',
+                        url: "https://github.com/SreenandhMt",
                       ),
                       SizedBox(width: 6),
                       AnimatedIconButton(
                         icon: Icons.linked_camera,
-                        text: "Download CV",
-                        url: 'assets/image/cvlogo.png',
+                        text: "Open CV",
+                        imageUrl: 'assets/image/cvlogo.png',
+                        url: "https://docs.google.com/document/d/1dKIUh8v5vT0aTLuB7Kc4a4b0QAFEQJgrGZRoEmPIwQ0/edit?usp=sharing",
                       ),
                     ],
                   ),
@@ -113,14 +120,16 @@ class ConnectBackGroundAnimation extends StatelessWidget {
 class AnimatedIconButton extends StatefulWidget {
   final IconData icon;
   final String url;
+  final String imageUrl;
   final String text;
 
   const AnimatedIconButton({
-    super.key,
+    Key? key,
     required this.icon,
     required this.url,
+    required this.imageUrl,
     required this.text,
-  });
+  }) : super(key: key);
 
   @override
   _AnimatedIconButtonState createState() => _AnimatedIconButtonState();
@@ -155,12 +164,14 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton> with SingleTick
       },
       child: Row(
         children: [
-          Image.asset(widget.url,height: 30),
+          Image.asset(widget.imageUrl,height: 30),
           // Icon(widget.icon, size: 40, color: Colors.blue),
           const SizedBox(width: 6),
-          if(showText) MouseRegion(
-          cursor: SystemMouseCursors.click,
+          if(showText) SizedBox(
           child: AnimatedTextKit(
+            onTap: () {
+              _launchURL(widget.url);
+            },
             animatedTexts: [
             TypewriterAnimatedText(
               widget.text,
@@ -176,6 +187,11 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton> with SingleTick
   }
 
   void _launchURL(String url) async {
+    try {
+      launchUrl(Uri.parse(url));
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   @override

@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProjectShowcaseSection extends StatelessWidget {
   const ProjectShowcaseSection({super.key});
@@ -26,11 +29,13 @@ class ProjectShowcaseSection extends StatelessWidget {
                       index: 1,
                       imageurl:
                           "assets/image/project1.png",
+                          projectUrl: "https://github.com/SreenandhMt/prime",
                     ),
                     ProjectBox(
                       index: 2,
                       imageurl:
                           "assets/image/project2.png",
+                          projectUrl: "https://github.com/SreenandhMt/Goals-Marker",
                     )
                   ],
                 )
@@ -120,12 +125,14 @@ class ProjectBackGroundAnimation extends StatelessWidget {
 class ProjectBox extends StatefulWidget {
   final int index;
   final String imageurl;
+  final String projectUrl;
 
   const ProjectBox({
-    super.key,
+    Key? key,
     required this.index,
     required this.imageurl,
-  });
+    required this.projectUrl,
+  }) : super(key: key);
 
   @override
   _ProjectBoxState createState() => _ProjectBoxState();
@@ -146,7 +153,7 @@ class _ProjectBoxState extends State<ProjectBox> {
       ),
       child: InkWell(
         onTap: () {
-          
+          _launchURL("");
         },
           child: MouseRegion(
             onEnter: (event) {
@@ -172,6 +179,13 @@ class _ProjectBoxState extends State<ProjectBox> {
           )
       ),
     );
+  }
+  void _launchURL(String url) async {
+    try {
+      launchUrl(Uri.parse(widget.projectUrl));
+    } catch (e) {
+      log(e.toString());
+    }
   }
 }
 
