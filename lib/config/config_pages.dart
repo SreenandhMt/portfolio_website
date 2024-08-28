@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_website/connect/connect_page.dart';
+import 'package:portfolio_website/project/project_page.dart';
 
+import '../about/about_page.dart';
 import '../home/home_page.dart';
 
 class MainPage extends StatelessWidget {
@@ -20,7 +23,14 @@ class MainPage extends StatelessWidget {
                           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5dxJOb3Z_f30m77iX1ysC2isIAxPpMuxndQ&s"),
                       fit: BoxFit.cover)),
             ),
-            HomePage(),
+            ListView(
+              children: [
+                HomePage(),
+                AboutSection(),
+                ProjectShowcaseSection(),
+                ConnectSection()
+              ],
+            ),
           ],
         ),
       );
