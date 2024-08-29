@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_website/connect/connect_page.dart';
 import 'package:portfolio_website/project/project_page.dart';
@@ -16,32 +17,57 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar:  PreferredSize(preferredSize: Size(size.width, 50), child: CustomAppbars()),
-        body: Stack(
-            children: [
-              Container(
-              width: size.width * 1,
-              height: size.height * 1,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5dxJOb3Z_f30m77iX1ysC2isIAxPpMuxndQ&s"),
-                      fit: BoxFit.cover)),
-            ),
-            ListView(
-              controller: scrollController,
-              children: const [
-                HomePage(),
-                AboutSection(),
-                ProjectShowcaseSection(),
-                ConnectSection()
+    return CallbackShortcuts(
+    bindings: <ShortcutActivator, VoidCallback>{
+      const SingleActivator(LogicalKeyboardKey.keyP): () async{
+        scrollController.animateTo(size.height*2.1, duration: const Duration(seconds: 1), curve: Easing.legacy);
+       },
+       const SingleActivator(LogicalKeyboardKey.keyS): () async{
+        scrollController.animateTo(0, duration: const Duration(seconds: 1), curve: Easing.legacy);
+       },
+       const SingleActivator(LogicalKeyboardKey.keyC): () async{
+        scrollController.animateTo(size.height*2.1, duration: const Duration(seconds: 1), curve: Easing.legacy);
+       },
+       const SingleActivator(LogicalKeyboardKey.keyE): () async{
+        scrollController.animateTo(size.height*2.1, duration: const Duration(seconds: 1), curve: Easing.legacy);
+       },
+       const SingleActivator(LogicalKeyboardKey.keyH): () async{
+        scrollController.animateTo(0, duration: const Duration(seconds: 1), curve: Easing.legacy);
+       },
+       const SingleActivator(LogicalKeyboardKey.keyA): () async{
+        scrollController.animateTo(size.height*1.1, duration: const Duration(seconds: 1), curve: Easing.legacy);
+       },
+    },
+      child: Focus(
+      autofocus: true,
+        child: Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar:  PreferredSize(preferredSize: Size(size.width, 50), child: CustomAppbars()),
+            body: Stack(
+                children: [
+                  Container(
+                  width: size.width * 1,
+                  height: size.height * 1,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(
+                              "assets/image/background.jpeg"),
+                          fit: BoxFit.cover)),
+                ),
+                ListView(
+                  controller: scrollController,
+                  children: const [
+                    HomePage(),
+                    AboutSection(),
+                    ProjectShowcaseSection(),
+                    ConnectSection()
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
-      );
+          ),
+      ),
+    );
   }
 }
 

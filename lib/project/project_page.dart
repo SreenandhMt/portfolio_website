@@ -1,14 +1,41 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ProjectShowcaseSection extends StatelessWidget {
+import 'package:portfolio_website/project_details/project_details_module.dart';
+
+List<ProjectDetailsModule> listProjectDetails = [
+  ProjectDetailsModule("Prime Store", "https://github.com/SreenandhMt/prime", "Prime Store is a cross-platform e-commerce application built with Flutter, offering a comprehensive and seamless shopping experience. The app is packed with essential e-commerce functionalities, including cart management, product favorites, user authentication, secure payment processing, and more. Additionally, it empowers users to create their own shop pages, buy and sell items, and engage with reviews and ratings."),
+  ProjectDetailsModule("Goal Marker","https://github.com/SreenandhMt/Goals-Marker", "Goal Marker is a powerful and intuitive application designed to help users set, track, and achieve their goals. Whether it's daily, monthly, or yearly objectives, Goal Marker provides a comprehensive platform to keep users on track with their aspirations.")
+];
+
+class ProjectShowcaseSection extends StatefulWidget  {
   const ProjectShowcaseSection({super.key});
+
+  @override
+  State<ProjectShowcaseSection> createState() => _ProjectShowcaseSectionState();
+}
+
+class _ProjectShowcaseSectionState extends State<ProjectShowcaseSection> with TickerProviderStateMixin{
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 2),
+    vsync: this,
+  )..forward();
+  late final Animation<double> _animation = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.fastOutSlowIn,
+  );
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    
     return Stack(
       children: [
         const ProjectBackGroundAnimation(),
@@ -22,20 +49,24 @@ class ProjectShowcaseSection extends StatelessWidget {
                 const SizedBox(height: 16),
                 Text('My Projects', style: GoogleFonts.anton(fontSize: 25)),
                 const SizedBox(height: 16),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ProjectBox(
-                      index: 1,
-                      imageurl:
-                          "assets/image/project1.png",
-                          projectUrl: "https://github.com/SreenandhMt/prime",
+                    ScaleTransition(
+                    scale: _animation,
+                      child: const ProjectBox(
+                        index: 1,
+                        imageurl:
+                            "assets/image/project1.png",
+                      ),
                     ),
-                    ProjectBox(
-                      index: 2,
-                      imageurl:
-                          "assets/image/project2.png",
-                          projectUrl: "https://github.com/SreenandhMt/Goals-Marker",
+                    ScaleTransition(
+                     scale: _animation,
+                      child: const ProjectBox(
+                        index: 2,
+                        imageurl:
+                            "assets/image/project2.png",
+                      ),
                     )
                   ],
                 )
@@ -45,6 +76,11 @@ class ProjectShowcaseSection extends StatelessWidget {
         ),
       ],
     );
+  }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
 
@@ -125,14 +161,11 @@ class ProjectBackGroundAnimation extends StatelessWidget {
 class ProjectBox extends StatefulWidget {
   final int index;
   final String imageurl;
-  final String projectUrl;
-
   const ProjectBox({
-    Key? key,
+    super.key,
     required this.index,
     required this.imageurl,
-    required this.projectUrl,
-  }) : super(key: key);
+  });
 
   @override
   _ProjectBoxState createState() => _ProjectBoxState();
@@ -153,7 +186,8 @@ class _ProjectBoxState extends State<ProjectBox> {
       ),
       child: InkWell(
         onTap: () {
-          _launchURL("");
+          // _launchURL("");
+          context.go('/Project-Details/${widget.index-1}?query=${listProjectDetails[widget.index-1].projectName}');
         },
           child: MouseRegion(
             onEnter: (event) {
@@ -169,8 +203,8 @@ class _ProjectBoxState extends State<ProjectBox> {
           });
             },
             child: AnimatedCrossFade(
-              firstChild:  Container(color: Colors.blue,padding: EdgeInsets.symmetric(vertical: 10), height:size.width>=1000? size.height*0.55:size.height*0.50, width: size.width>=1000?size.width*0.33:size.width*0.43,child: Image.asset(widget.imageurl)),
-              secondChild: Container(color: Colors.red,padding: EdgeInsets.symmetric(vertical: 10), height:size.width>=1000? size.height*0.5:size.height*0.45, width: size.width>=1000?size.width*0.3:size.width*0.4,child: Image.asset(widget.imageurl)),
+              firstChild:  Container(color: Colors.blue,height:size.width>=1000? size.height*0.55:size.height*0.50, width: size.width>=1000?size.width*0.33:size.width*0.43,child: Image.asset(widget.imageurl,fit: BoxFit.fill,)),
+              secondChild: Container(color: Colors.red,height:size.width>=1000? size.height*0.5:size.height*0.45, width: size.width>=1000?size.width*0.3:size.width*0.4,child: Image.asset(widget.imageurl,fit: BoxFit.cover,)),
               crossFadeState: _showFirst
                   ? CrossFadeState.showFirst
                   : CrossFadeState.showSecond,
@@ -179,13 +213,6 @@ class _ProjectBoxState extends State<ProjectBox> {
           )
       ),
     );
-  }
-  void _launchURL(String url) async {
-    try {
-      launchUrl(Uri.parse(widget.projectUrl));
-    } catch (e) {
-      log(e.toString());
-    }
   }
 }
 

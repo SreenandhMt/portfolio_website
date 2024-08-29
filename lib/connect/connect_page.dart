@@ -166,21 +166,21 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton> with SingleTick
         children: [
           Image.asset(widget.imageUrl,height: 30),
           // Icon(widget.icon, size: 40, color: Colors.blue),
-          const SizedBox(width: 6),
-          if(showText) SizedBox(
-          child: AnimatedTextKit(
-            onTap: () {
-              _launchURL(widget.url);
-            },
-            animatedTexts: [
-            TypewriterAnimatedText(
-              widget.text,
-              textStyle: GoogleFonts.sourceCodePro(color: Colors.amber),
-              curve: Easing.legacy,
-              speed: const Duration(milliseconds: 100),
-            ),
-          ],)
-          )
+          // const SizedBox(width: 6),
+          // if(showText) SizedBox(
+          // child: AnimatedTextKit(
+          //   onTap: () {
+          //     _launchURL(widget.url);
+          //   },
+          //   animatedTexts: [
+          //   TypewriterAnimatedText(
+          //     widget.text,
+          //     textStyle: GoogleFonts.sourceCodePro(color: Colors.amber),
+          //     curve: Easing.legacy,
+          //     speed: const Duration(milliseconds: 100),
+          //   ),
+          // ],)
+          // )
         ]
       ),
     );
