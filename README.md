@@ -1,6 +1,6 @@
 # portfolio_website
 
-[Open a Website](https://sreenandhmt.github.io/Im.github.io/)
+[Open a Website](sreenandhmt.github.io)
 
 ## Getting Started
 
