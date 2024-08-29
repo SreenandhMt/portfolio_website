@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -24,47 +23,101 @@ class _ConnectSectionState extends State<ConnectSection> {
           width: size.width*1,
           height: size.height*0.3,
           color: Colors.transparent,
-          child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  Text('Connect Me', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold,color: Colors.amber[100])),
-                  const SizedBox(height: 16),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+          child: Stack(
+            children: [
+              Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
                     children: [
-                      AnimatedIconButton(
-                        icon: Icons.mail,
-                        text: "Open Email",
-                        imageUrl: 'assets/image/email.png',
-                        url: "mailto:sreenand104@gmail.com",
+                      Text('Connect Me', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold,color: Colors.amber[100])),
+                      const SizedBox(height: 16),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(width: 6),
+                          AnimatedIconButton(
+                            icon: Icons.linked_camera,
+                            text: "Open LInkedin",
+                            imageUrl: 'assets/image/linkedin2.png',
+                            url: "www.linkedin.com/in/sreenandh-mt",
+                          ),
+                           SizedBox(width: 6),
+                          AnimatedIconButton(
+                            icon: Icons.linked_camera,
+                            text: "Open GitHub",
+                            imageUrl: 'assets/image/github.png',
+                            url: "https://github.com/SreenandhMt",
+                          ),
+                          SizedBox(width: 6),
+                          AnimatedIconButton(
+                            icon: Icons.linked_camera,
+                            text: "Open CV",
+                            imageUrl: 'assets/image/cvlogo.png',
+                            url: "https://docs.google.com/document/d/1dKIUh8v5vT0aTLuB7Kc4a4b0QAFEQJgrGZRoEmPIwQ0/edit?usp=sharing",
+                          ),
+                        ],
                       ),
-                      SizedBox(width: 6),
-                      AnimatedIconButton(
-                        icon: Icons.linked_camera,
-                        text: "Open LInkedin",
-                        imageUrl: 'assets/image/linkedin2.png',
-                        url: "www.linkedin.com/in/sreenandh-mt",
-                      ),
-                       SizedBox(width: 6),
-                      AnimatedIconButton(
-                        icon: Icons.linked_camera,
-                        text: "Open GitHub",
-                        imageUrl: 'assets/image/github.png',
-                        url: "https://github.com/SreenandhMt",
-                      ),
-                      SizedBox(width: 6),
-                      AnimatedIconButton(
-                        icon: Icons.linked_camera,
-                        text: "Open CV",
-                        imageUrl: 'assets/image/cvlogo.png',
-                        url: "https://docs.google.com/document/d/1dKIUh8v5vT0aTLuB7Kc4a4b0QAFEQJgrGZRoEmPIwQ0/edit?usp=sharing",
-                      ),
+                      if(size.width<=1500)
+                      SizedBox(height: size.height*.04),
+                      if(size.width<=1500)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AnimatedIconButton(
+                                icon: Icons.mail,
+                                text: "Open Email",
+                                imageUrl: 'assets/image/email.png',
+                                url: "mailto:sreenand104@gmail.com",
+                              ),
+                              SizedBox(width: 10),
+                              Text("sreenand104@gmail.com",style: GoogleFonts.abel(color: Colors.amber[100]))
+                      ],
+                    ),
+                    if(size.width<=1500)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.phone_android_rounded,color:Colors.grey,),
+                        SizedBox(width: 10),
+                              Text("7012123028",style: GoogleFonts.abel(color: Colors.amber[100]))
+                      ],
+                    )
                     ],
                   ),
-                ],
-              ),
-            ),
+                ),
+                if(size.width>=1500)
+                Align(
+                  alignment: Alignment.topRight,
+                  child: SizedBox(
+                    width: size.width*.14,
+                    child: Column(
+                      children: [
+                        SizedBox(height: size.height*.04),
+                        Row(
+                      children: [
+                        AnimatedIconButton(
+                                icon: Icons.mail,
+                                text: "Open Email",
+                                imageUrl: 'assets/image/email.png',
+                                url: "mailto:sreenand104@gmail.com",
+                              ),
+                              SizedBox(width: 10),
+                              Text("sreenand104@gmail.com",style: GoogleFonts.abel(color: Colors.amber[100]))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.phone_android_rounded,color:Colors.grey,),
+                        SizedBox(width: 10),
+                              Text("7012123028",style: GoogleFonts.abel(color: Colors.amber[100]))
+                      ],
+                    )
+                      ],
+                    ),
+                  ),
+                )
+            ],
+          ),
         ),
       ],
     );

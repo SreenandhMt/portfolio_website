@@ -35,7 +35,7 @@ class MainPage extends StatelessWidget {
         scrollController.animateTo(0, duration: const Duration(seconds: 1), curve: Easing.legacy);
        },
        const SingleActivator(LogicalKeyboardKey.keyA): () async{
-        scrollController.animateTo(size.height*1.1, duration: const Duration(seconds: 1), curve: Easing.legacy);
+        scrollController.animateTo(size.height*1.07, duration: const Duration(seconds: 1), curve: Easing.legacy);
        },
     },
       child: Focus(
