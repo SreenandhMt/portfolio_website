@@ -1,4 +1,4 @@
-# portfolio_website
+# Portfolio Website
 
 [Open a Website](sreenandhmt.github.io)
 
