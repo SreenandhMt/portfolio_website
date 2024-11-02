@@ -1,6 +1,6 @@
 # Portfolio Website
 
-[Open a Website](sreenandhmt.github.io)
+[Open a Website](https://sreenandhmt.github.io)
 
 ## Getting Started
 
